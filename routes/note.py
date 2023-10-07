@@ -22,8 +22,11 @@ async def read_note(request: Request):
 @note.post("/create", response_class=HTMLResponse)
 async def create_note(request: Request):
     form = await request.form()
+    print(form)
     formDict = dict(form)
-    formDict['isImportant'] = True if formDict['isImportant'] == "on" else False
+    # formDict['isImportant'] = True if formDict['isImportant'] == "on" else False
+    if "isImportant" not in formDict.keys():
+        formDict["isImportant"] = False
     note = conn.Practice.Practice_DB.insert_one(formDict)
 
     message = "Failed To Upload New Note"
