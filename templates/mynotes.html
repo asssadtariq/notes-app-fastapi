@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">My Notes</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -65,7 +65,7 @@
         <tbody>
           {% for value in data %}
           <tr class="text-center">
-            <td scope="row">1</td>
+            <td scope="row">{{loop.index}}</td>
             <td>{{value['title']}}</td>
             <td>{{value['description']}}</td>
             <td><button class="btn btn-primary">View</button></td>
