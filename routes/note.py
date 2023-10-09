@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse
 from models.note import Note as noteModel
 from config.db import conn
 from fastapi.templating import Jinja2Templates
+from bson import ObjectId
 
 from schemas.note import noteEntity, notesEntity # noteEntity of one item - notesEntity for a list of item
 
@@ -35,3 +36,33 @@ async def create_note(request: Request):
 
     return templates.TemplateResponse("index.html", {"request": request, "message": message})
 
+@note.post("/modify", response_class=HTMLResponse)
+async def modify_note(request: Request):
+    form = await request.form()
+    formDict = dict(form)
+
+    filter_criteria = {"_id": ObjectId(formDict['_id'])}
+
+    del formDict["_id"]
+
+    update_ops = {
+        "$set": formDict
+    }
+    doc = conn.Practice.Practice_DB.update_one(filter_criteria, update_ops)
+    message = "Operation Failed"
+    if doc.matched_count > 0:
+        message = "Operation Successful"
+
+    return templates.TemplateResponse("index.html", {"request": request, "message": message})
+
+@note.get("/delete/{note_id}", response_class=HTMLResponse)
+async def modify_note(request: Request, note_id):
+    message = "Operation Failed"
+    if note_id:
+        note_id = ObjectId(note_id)
+        result = conn.Practice.Practice_DB.delete_one({"_id": note_id})
+
+        if result:
+            message = "Deleted Record"
+    
+    return templates.TemplateResponse("index.html", {"request": request, "message": message})
