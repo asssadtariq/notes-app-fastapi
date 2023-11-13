@@ -10,10 +10,19 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+
+    <style>
+      #error-img {
+        max-width: 800px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <img src="/static/images/error404.jpg" alt="" />
+    <div
+      class="container d-flex justify-content-center align-items-center flex-column"
+    >
+      <img src="/static/images/error404.jpg" alt="" id="error-img" />
+      <a href="/" class="btn btn-outline-warning"> Back </a>
     </div>
 
     <script
