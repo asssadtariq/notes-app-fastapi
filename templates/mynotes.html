@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">My Notes</a>
+        <a class="navbar-brand" href="#">Navbar</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -78,7 +78,13 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-danger"><a href="/delete/{{value['_id']}}" class="text-decoration-none text-light">Delete</a></button>
+              <button class="btn btn-danger">
+                <a
+                  href="/delete/{{value['_id']}}"
+                  class="text-decoration-none text-light"
+                  >Delete</a
+                >
+              </button>
             </td>
           </tr>
 
@@ -188,15 +194,25 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a
+              class="page-link"
+              href="/page={{currPage - 1}}"
+              aria-label="Previous"
+            >
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          {% for i in range(pages) %}
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="/page={{loop.index}}">{{loop.index}}</a>
+          </li>
+          {% endfor %}
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="/page={{currPage + 1}}"
+              aria-label="Next"
+            >
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
