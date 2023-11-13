@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import FastAPI, Request
+from fastapi import Request
 from fastapi.responses import HTMLResponse
 from models.note import Note as noteModel
 from config.db import conn
