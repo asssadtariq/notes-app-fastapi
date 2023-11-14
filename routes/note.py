@@ -22,17 +22,20 @@ async def read_note(request: Request):
 
 @note.get("/page={page}", response_class=HTMLResponse)
 async def read_note(request: Request, page=1):
+    message = "Failed to get the page"
     try:
         page = int(page)
         if page > 0:
             doc_count = math.ceil(conn.Practice.Practice_DB.count_documents({}) / page_limit)
             doc = conn.Practice.Practice_DB.find().skip( (page - 1) * page_limit).limit(page_limit)
-            return templates.TemplateResponse("mynotes.html", {"request": request, "data": doc, "pages": doc_count, "currPage": page})
 
+            if doc_count >= page:
+                return templates.TemplateResponse("mynotes.html", {"request": request, "data": doc, "pages": doc_count, "currPage": page})
+            
     except Exception as e:
         print(f"Exception {e} in fetching notes")
 
-    return templates.TemplateResponse("error.html", {"request": request, "message": "Error Message"})
+    return templates.TemplateResponse("error.html", {"request": request, "message": message})
 
 @note.get("/create_notes", response_class=HTMLResponse)
 async def read_note(request: Request):

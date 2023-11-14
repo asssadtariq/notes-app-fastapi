@@ -193,6 +193,7 @@
 
       <nav aria-label="Page navigation example">
         <ul class="pagination">
+          {% if currPage >= 2 %}
           <li class="page-item">
             <a
               class="page-link"
@@ -202,11 +203,11 @@
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          {% for i in range(pages) %}
+          {% endif %} {% for i in range(pages) %}
           <li class="page-item">
             <a class="page-link" href="/page={{loop.index}}">{{loop.index}}</a>
           </li>
-          {% endfor %}
+          {% endfor %} {% if pages > currPage %}
           <li class="page-item">
             <a
               class="page-link"
@@ -216,6 +217,7 @@
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          {% endif %}
         </ul>
       </nav>
     </div>
